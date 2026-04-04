@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Dragon Temple Run</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="W">
+    <canvas id="c"></canvas>
+    <div id="scoreDisplay">0</div>
+    <div id="combo"></div>
+    <button id="soundToggle">&#x1F50A;</button>
+
+    <!-- Start Screen -->
+    <div id="overlay" class="panel">
+      <div class="ic">&#x1F409;</div>
+      <div class="title">Dragon Temple</div>
+      <div class="sub">Ejderha Tapinak Ucusu</div>
+      <div class="hint">Tikla / Bosluk / Yukari Ok</div>
+      <button class="btn" id="startBtn">Basla</button>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOver" class="panel">
+      <h2>Oyun Bitti!</h2>
+      <div class="fs" id="finalScore">0</div>
+      <div class="bs" id="bestScore">En Iyi: 0</div>
+      <button class="btn" id="restartBtn">Tekrar Oyna</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

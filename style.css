@@ -1,0 +1,242 @@
+/* ========================================
+   Dragon Temple Run - Stylesheet
+   ======================================== */
+
+/* --- RESET & BASE --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: Georgia, 'Times New Roman', serif;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* --- GAME WRAPPER --- */
+#W {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-width: 520px;
+  max-height: 850px;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* --- PANELS (Start / Game Over) --- */
+.panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition: opacity 0.5s;
+}
+
+.panel.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#overlay {
+  background: rgba(5, 2, 0, 0.82);
+}
+
+#gameOver {
+  background: rgba(8, 3, 0, 0.85);
+  display: none;
+}
+
+#gameOver.show {
+  display: flex;
+}
+
+/* --- TITLE & TEXT --- */
+.title {
+  font-size: clamp(38px, 9vw, 56px);
+  color: #f5d442;
+  text-shadow:
+    0 0 40px rgba(245, 212, 66, 0.6),
+    0 0 80px rgba(245, 150, 30, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.9);
+  margin-bottom: 4px;
+  letter-spacing: 6px;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.sub {
+  font-size: clamp(14px, 3.5vw, 20px);
+  color: #e8c170;
+  margin-bottom: 8px;
+  opacity: 0.75;
+  letter-spacing: 2px;
+}
+
+.hint {
+  font-size: clamp(11px, 2.5vw, 14px);
+  color: rgba(232, 193, 112, 0.5);
+  margin-bottom: 28px;
+}
+
+.ic {
+  font-size: clamp(50px, 12vw, 70px);
+  margin-bottom: 8px;
+  animation: float 2.5s ease-in-out infinite;
+}
+
+#gameOver h2 {
+  font-size: clamp(32px, 8vw, 48px);
+  color: #e74c3c;
+  text-shadow: 0 0 30px rgba(231, 76, 60, 0.6);
+  margin-bottom: 8px;
+}
+
+.fs {
+  font-size: clamp(48px, 11vw, 72px);
+  color: #f5d442;
+  text-shadow: 0 0 40px rgba(245, 212, 66, 0.6);
+  margin-bottom: 4px;
+}
+
+.bs {
+  font-size: clamp(14px, 3vw, 18px);
+  color: #e8c170;
+  margin-bottom: 24px;
+  opacity: 0.65;
+}
+
+/* --- BUTTONS --- */
+.btn {
+  font-family: Georgia, serif;
+  font-size: clamp(20px, 5vw, 28px);
+  color: #fff;
+  background: linear-gradient(135deg, #8b0000, #c0392b, #e74c3c);
+  border: 3px solid #f5d442;
+  border-radius: 14px;
+  padding: 14px 52px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+  box-shadow:
+    0 0 25px rgba(231, 76, 60, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover,
+.btn:active {
+  transform: scale(1.08);
+  box-shadow: 0 0 50px rgba(231, 76, 60, 0.8);
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: rotate(45deg);
+  animation: btnShine 3s infinite;
+}
+
+/* --- HUD --- */
+#scoreDisplay {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(36px, 8vw, 54px);
+  color: #f5d442;
+  text-shadow:
+    0 0 25px rgba(245, 212, 66, 0.5),
+    0 3px 6px rgba(0, 0, 0, 0.9);
+  z-index: 5;
+  pointer-events: none;
+  transition: transform 0.15s;
+}
+
+#scoreDisplay.pop {
+  transform: translateX(-50%) scale(1.3);
+}
+
+#combo {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(16px, 4vw, 22px);
+  color: #ff6600;
+  text-shadow: 0 0 15px rgba(255, 100, 0, 0.6);
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+#soundToggle {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(245, 212, 66, 0.4);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: #f5d442;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes glow {
+  from {
+    text-shadow:
+      0 0 30px rgba(245, 212, 66, 0.5),
+      0 4px 8px rgba(0, 0, 0, 0.9);
+  }
+  to {
+    text-shadow:
+      0 0 60px rgba(245, 212, 66, 0.8),
+      0 0 100px rgba(255, 150, 30, 0.4),
+      0 4px 8px rgba(0, 0, 0, 0.9);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes btnShine {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
