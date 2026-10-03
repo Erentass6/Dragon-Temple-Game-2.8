@@ -2,8 +2,6 @@
 
 A **Flappy Bird-style** browser game built with vanilla HTML5 Canvas, CSS, and JavaScript — no frameworks, no dependencies, no build tools. Fly a fire-breathing dragon through ancient Chinese temple pillars while dodging obstacles and racking up combos.
 
-![Game Preview](preview.gif)
-
 ## 🎮 Play Now
 
 1. Clone the repo
